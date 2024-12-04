@@ -29,7 +29,7 @@ const errorHandler = (err, req, res, next)=>{
         default:
             console.log('No error found');
     }
-    res.status(statusCode).json(errorResponse);
+   res.json(errorResponse);
 };
 
 module.exports = errorHandler;
