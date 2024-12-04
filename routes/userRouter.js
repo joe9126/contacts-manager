@@ -1,4 +1,5 @@
 const express = require('express');
+const validateToken = require("../middleware/tokenvalidationHandler");
 const { registerUser, loginUser, currentUser } = require('../controllers/userController');
 const router = express.Router();
 
@@ -19,6 +20,6 @@ router.post('/register',registerUser);
  * @route /api/user/current
  * @access private
  * */
-router.get('/current',currentUser);
+router.get('/current',validateToken, currentUser);
 
 module.exports = router;

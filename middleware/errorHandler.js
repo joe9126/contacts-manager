@@ -3,46 +3,33 @@ const errorHandler = (err, req, res, next)=>{
     const statusCode = res.statusCode ? res.statusCode : 500;
     res.json({message: err.message, stackTrace:err.stack });
 
+    let errorResponse = {
+        title: "Error",
+        message: err.message,
+        stackTrace: err.stack,
+    };
+
     switch(statusCode){
         case constants.VALIDATION_ERROR:
-            res.json({
-                title:"Validation error",
-                message:err.message,
-                stackTrace: err.stack,
-            });
+            errorResponse.title = "Validation error";
             break;
         case constants.NOT_FOUND:
-            res.json({
-                title:"Not found error",
-                message:err.message,
-                stackTrace: err.stack,
-            });
+            errorResponse.title = "Not found error";
             break;
         case constants.SERVER_ERROR:
-            res.json({
-                title:"Server error",
-                message:err.message,
-                stackTrace:err.stack
-            });
+            errorResponse.title = "Server error";
             break;
         case constants.FORBIDDEN:
-                res.json({
-                    title:"Forbidden",
-                    message:err.message,
-                    stackTrace:err.stack
-                });
+            errorResponse.title = "Forbidden";
             break;
         case constants.UNAUTHORIZED:
-                res.json({
-                    title:"Unauthorized",
-                    message:err.message,
-                    stackTrace:err.stack
-                });
+            errorResponse.title = "Unauthorized";
             break;
 
         default:
             console.log('No error found');
     }
+    res.status(statusCode).json(errorResponse);
 };
 
 module.exports = errorHandler;

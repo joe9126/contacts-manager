@@ -68,21 +68,6 @@ const loginUser = asyncHandler(async (req,res)=>{
    
 });
 
-/**
- * @desc get all users
- */
-const getUsers = asyncHandler(async (req,res)=>{
-    const users = await User.find();
-    res.status(200).json(users);
-});
-
-/**
- * @desc get user by Id
- */
-const getUser = asyncHandler(async (req,res)=>{
-    const user = await User.findById(req.params.id);
-    res.status(200).json(user);
-});
 
 /**
  * @desc Current user info
@@ -90,7 +75,7 @@ const getUser = asyncHandler(async (req,res)=>{
  * @access private
  */
 const currentUser = asyncHandler(async (req,res)=>{
-    res.json({message:"Current user"});
+    res.json(req.user);
 });
 
 module.exports = {registerUser,loginUser,currentUser};
